@@ -1,10 +1,6 @@
-import {
-  View,
-  TextInputProps,
-  Text,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import LabeledText from "elements/LabeledText";
+import LabeledTextInput from "elements/LabeledTextInput";
+import { View, TextInputProps, StyleSheet } from "react-native";
 
 /**
  * Exibe informações básicas do desumidificador selecionado.
@@ -22,12 +18,15 @@ export default function DryerInformation(
   return (
     <View style={styles.infoCard}>
       {/* Exibe o ID do dryer ou "Novo" se for criação */}
-      <Text style={styles.label}>{`Id: ${dryerId || "Novo"}`}</Text>
-      <View style={styles.inputRow}>
-        <Text style={styles.label}>Name: </Text>
-        {/* Input controlado para o nome do dryer */}
-        <TextInput {...props} value={dryerName} style={styles.input} />
-      </View>
+      <LabeledText labelStyle={{ minWidth: 60 }} labelValue="ID">
+        {dryerId || "Novo"}
+      </LabeledText>
+      <LabeledTextInput
+        labelStyle={{ minWidth: 60 }}
+        labelValue="Nome"
+        {...props}
+        value={dryerName}
+      />
     </View>
   );
 }
@@ -40,26 +39,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderColor: "#e0e0e0",
-  },
-  label: {
-    fontSize: 15,
-    color: "#222",
-    marginBottom: 4,
-  },
-  inputRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 4,
-  },
-  input: {
-    backgroundColor: "#f0f0f0",
-    borderRadius: 6,
-    padding: 8,
-    color: "#222",
-    flex: 1,
-    minWidth: 80,
-    maxWidth: "90%",
-    borderWidth: 1,
-    borderColor: "#ccc",
   },
 });

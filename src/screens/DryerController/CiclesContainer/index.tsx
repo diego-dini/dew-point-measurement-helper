@@ -30,11 +30,20 @@ export default function CiclesContainer(
   /**
    * Atualiza um ciclo específico no array.
    */
-  const updateCicle = (updatedCicle: DryerCicle, updatedCicleIdx: Number) => {
+  const updateCicle = (
+    updatedCicle: { name?: string; duration?: number },
+    updatedCicleIdx: Number
+  ) => {
+    const { name, duration } = updatedCicle;
+
     setCicles(
-      cicles.map((cicle, idx) =>
-        idx == updatedCicleIdx ? updatedCicle : cicle
-      )
+      cicles.map((cicle, idx) => {
+        if (idx != updatedCicleIdx) return cicle;
+        return {
+          name: name !== undefined ? name : cicle.name,
+          duration: duration !== undefined ? duration : cicle.duration,
+        };
+      })
     );
   };
 

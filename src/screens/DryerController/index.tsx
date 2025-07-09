@@ -8,10 +8,14 @@ import {
 import { useEffect, useState } from "react";
 import storage from "utils/storage";
 import { Dryer, DryerCicle } from "types/dryer";
-import DryerButton from "./DryerButton";
+import DryerButton from "../../elements/DryerButton";
 import CiclesContainer from "./CiclesContainer";
 import { useLoading } from "elements/LoadingContext";
 import DryerInformation from "./DryerInformation";
+import DefaultButton from "elements/DefaultButton";
+import DefaultContainer from "elements/DefaultContainer";
+import DefaultCardContainer from "elements/DefaultCard";
+import DefaultActionContainer from "elements/DefaultActionContainer";
 
 /**
  * Tela de controle de desumidificadores.
@@ -24,8 +28,12 @@ export default function DryerControllerScreen() {
   const [dryers, setDryers] = useState<Dryer[]>([]);
   const [name, setName] = useState<string>("");
   const [id, setId] = useState<number>();
-  const [cicles, setCicles] = useState<DryerCicle[]>([]);
+  const [cicles, setCiclesl] = useState<DryerCicle[]>([]);
   const { setLoading } = useLoading();
+
+  const setCicles = (newCicles: DryerCicle[]) => {
+    setCiclesl(newCicles);
+  };
 
   /**
    * Seleciona um dryer e preenche o formulário com seus dados.
@@ -46,13 +54,19 @@ export default function DryerControllerScreen() {
     Keyboard.dismiss();
 
     setLoading(true, "Salvando...");
-    await new Promise((resolve) => setTimeout(resolve, 500));
 
     const dryer = {
       id: Number(id),
       name,
       cicles,
     };
+
+    const defaultCallback = async () => {
+      const updatedDryers = await storage.getDryers();
+      setDryers(updatedDryers);
+      setLoading(false);
+    };
+
     if (dryer.id == 0 || dryer.id == undefined || Number.isNaN(dryer.id)) {
       // Gera novo id incremental
       const higherId =
@@ -60,15 +74,10 @@ export default function DryerControllerScreen() {
           return dryer.id > acc ? dryer.id : acc;
         }, 0) + 1;
       dryer.id = Number(higherId);
-
-      await storage.addDryer(dryer);
+      storage.addDryer(dryer).then(defaultCallback);
     } else {
-      await storage.updateDryer(dryer);
+      storage.updateDryer(dryer).then(defaultCallback);
     }
-
-    setDryers(await storage.getDryers());
-
-    setLoading(false);
   };
 
   /**
@@ -78,7 +87,6 @@ export default function DryerControllerScreen() {
   const deleteHandler = async () => {
     Keyboard.dismiss();
     setLoading(true, "Removendo...");
-    await new Promise((resolve) => setTimeout(resolve, 500));
     if (!id) return setLoading(false);
     await storage.removeDryer(id);
     setDryers(await storage.getDryers());
@@ -106,7 +114,7 @@ export default function DryerControllerScreen() {
   }, []);
 
   return (
-    <View style={style.container}>
+    <DefaultContainer>
       {/* Botão para mostrar/ocultar lista de dryers */}
       <View style={{ marginBottom: 16 }}>
         <TouchableOpacity
@@ -133,7 +141,7 @@ export default function DryerControllerScreen() {
         )}
       </View>
       {/* Formulário de informações do dryer selecionado */}
-      <View style={style.card}>
+      <DefaultCardContainer>
         <Text style={style.sectionTitle}>Informações</Text>
         <DryerInformation
           dryerId={Number.isNaN(id) ? undefined : Number(id)}
@@ -141,65 +149,23 @@ export default function DryerControllerScreen() {
           onChange={(e) => setName(e.nativeEvent.text)}
         />
         <CiclesContainer cicles={cicles} setCicles={setCicles} />
-        {/* Botões de ação */}
-        <View style={style.actionRow}>
-          <TouchableOpacity style={style.button} onPress={cleanHandler}>
-            <Text style={style.buttonText}>Limpar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.button} onPress={deleteHandler}>
-            <Text style={style.buttonText}>Apagar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.button} onPress={saveHandler}>
-            <Text style={style.buttonText}>Salvar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+        <DefaultActionContainer>
+          <DefaultButton onPress={saveHandler}>Salvar</DefaultButton>
+
+          <DefaultButton onPress={deleteHandler}>Apagar</DefaultButton>
+          <DefaultButton onPress={cleanHandler}>Limpar</DefaultButton>
+        </DefaultActionContainer>
+      </DefaultCardContainer>
+    </DefaultContainer>
   );
 }
 
 const style = StyleSheet.create({
-  container: {
-    position: "relative",
-    flex: 1,
-    backgroundColor: "#f5f6fa",
-    padding: 16,
-    zIndex: 1,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
     color: "#222",
-  },
-  button: {
-    backgroundColor: "#1976d2",
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    alignItems: "center",
-    marginVertical: 6,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  actionRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 16,
   },
   NameInputView: {
     flexDirection: "row",

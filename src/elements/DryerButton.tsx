@@ -15,13 +15,12 @@ import { Dryer } from "types/dryer";
 interface DryerButtonProps extends TouchableOpacityProps {
   setDryer: (dryer: Dryer) => void;
   dryer: Dryer;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export default function DryerButton({
   setDryer,
   dryer,
-  children,
   style,
   ...props
 }: DryerButtonProps) {
@@ -31,13 +30,14 @@ export default function DryerButton({
       style={[styles.button, style]}
       {...props}
     >
-      <Text style={styles.buttonText}>{children}</Text>
+      <Text style={styles.buttonText}>{dryer.name}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
+    flex: 1,
     backgroundColor: "#fff",
     borderRadius: 8,
     paddingVertical: 10,
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     borderColor: "#1976d2",
     alignItems: "center",
     minWidth: 90,
+    maxWidth: "22.5%",
     elevation: 2,
   },
   buttonText: {

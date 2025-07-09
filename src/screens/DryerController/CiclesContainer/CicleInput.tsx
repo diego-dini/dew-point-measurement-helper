@@ -1,11 +1,11 @@
+import LabeledTextInput from "elements/LabeledTextInput";
 import { useState, useEffect } from "react";
 import {
   View,
   ViewProps,
-  Text,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
+  Text,
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from "react-native";
@@ -21,7 +21,10 @@ import { DryerCicle } from "types/dryer";
 type CicleInputProps = {
   id: string;
   cicle: DryerCicle;
-  updateCicle: (updatedCicle: DryerCicle, cicleIdx: Number) => void;
+  updateCicle: (
+    updatedCicle: { name?: string; duration?: number },
+    updatedCicleIdx: Number
+  ) => void;
   removeCicle: (cicleIdx: number) => void;
 };
 
@@ -33,19 +36,13 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
   const { cicle, updateCicle, removeCicle } = props;
   const [name, setName] = useState(cicle.name);
   const [duration, setDuration] = useState(cicle.duration);
+  const [isFocus, setIsFocus] = useState(false);
 
   // Sincroniza o estado local com as props ao trocar de ciclo
   useEffect(() => {
     setName(cicle.name);
     setDuration(cicle.duration);
-  }, [props.id]);
-
-  /**
-   * Atualiza o ciclo no array do pai
-   */
-  const setUpdateTimout = () => {
-    updateCicle({ name, duration }, Number(props.id));
-  };
+  }, [cicle.name, cicle.duration, props.id]);
 
   /**
    * Handler para mudança do nome
@@ -53,8 +50,8 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
   const nameChangeHandler = (
     e: NativeSyntheticEvent<TextInputChangeEventData>
   ) => {
-    setName(e.nativeEvent.text);
-    setUpdateTimout();
+    const name = e.nativeEvent.text;
+    updateCicle({ name }, Number(props.id));
   };
 
   /**
@@ -64,34 +61,33 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
     e: NativeSyntheticEvent<TextInputChangeEventData>
   ) => {
     const text = e.nativeEvent.text;
-    if (Number.isNaN(text)) {
-      setDuration(0);
-    } else {
+    let duration = 0;
+    if (!Number.isNaN(text)) {
       setDuration(Number(text));
+      updateCicle({ duration }, Number(props.id));
     }
-    setUpdateTimout();
   };
 
   return (
     <View style={styles.cicleCard} id={props.id}>
-      <View style={styles.row}>
-        <Text style={styles.label}>Name: </Text>
-        <TextInput
-          value={name}
-          style={styles.input}
-          onChange={nameChangeHandler}
-        />
-      </View>
-      <View style={styles.row}>
-        <Text style={styles.label}>Duration: </Text>
-        <TextInput
-          keyboardType="number-pad"
-          value={String(duration)}
-          style={styles.input}
-          onChange={durationChangeHandler}
-        />
-      </View>
-      <View style={styles.row}>
+      <LabeledTextInput
+        labelValue="Nome"
+        value={name}
+        style={styles.input}
+        onChange={nameChangeHandler}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+      />
+      <LabeledTextInput
+        labelValue="Duração"
+        keyboardType="number-pad"
+        value={String(duration)}
+        style={styles.input}
+        onChange={durationChangeHandler}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+      />
+      {isFocus && (
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => {
@@ -100,7 +96,7 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
         >
           <Text style={styles.deleteButtonText}>Apagar</Text>
         </TouchableOpacity>
-      </View>
+      )}
     </View>
   );
 }
@@ -114,17 +110,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#e0e0e0",
   },
-  row: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  label: {
-    fontSize: 15,
-    color: "#222",
-    marginRight: 8,
-    minWidth: 60,
-  },
   input: {
     backgroundColor: "#f0f0f0",
     borderRadius: 6,
@@ -135,6 +120,7 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
     borderWidth: 1,
     borderColor: "#ccc",
+    marginBottom: 8,
   },
   deleteButton: {
     backgroundColor: "#e53935",
