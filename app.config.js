@@ -4,7 +4,7 @@ export default ({ config }) => {
     ...config,
     name: isDev ? "Dew Point Helper (Dev)" : "Dew Point Helper",
     displayName: isDev ? "Dew Point Helper Dev" : "Dew Point Helper",
-    icon: "./assets/icon.webp",
+    icon: "./assets/icon.png",
     extra: {
       eas: {
         projectId: "1cc2a678-1fdd-4696-93b8-9661bd1dbe35",
