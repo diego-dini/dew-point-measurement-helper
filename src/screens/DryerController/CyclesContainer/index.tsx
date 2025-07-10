@@ -5,43 +5,43 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { DryerCicle } from "types/dryer";
-import CicleInput from "./CicleInput";
+import { DryerCycle } from "types/dryer";
+import CycleInput from "./CycleInput";
 
 /**
  * Props para o container de ciclos de um dryer.
- * - cicles: array de ciclos atuais
- * - setCicles: função para atualizar o array de ciclos
+ * - cycles: array de ciclos atuais
+ * - setCycles: função para atualizar o array de ciclos
  */
-type CiclesContainerProps = {
-  cicles: DryerCicle[];
-  setCicles: (cicles: DryerCicle[]) => void;
+type CyclesContainerProps = {
+  cycles: DryerCycle[];
+  setCycles: (cycles: DryerCycle[]) => void;
 };
 
 /**
  * Componente que exibe e gerencia a lista de ciclos de um dryer.
  * Permite adicionar, editar e remover ciclos.
  */
-export default function CiclesContainer(
-  props: CiclesContainerProps & ViewProps
+export default function CyclesContainer(
+  props: CyclesContainerProps & ViewProps
 ) {
-  const { cicles, setCicles } = props;
+  const { cycles, setCycles } = props;
 
   /**
    * Atualiza um ciclo específico no array.
    */
-  const updateCicle = (
-    updatedCicle: { name?: string; duration?: number },
-    updatedCicleIdx: Number
+  const updateCycle = (
+    updatedCycle: { name?: string; duration?: number },
+    updatedCycleIdx: Number
   ) => {
-    const { name, duration } = updatedCicle;
+    const { name, duration } = updatedCycle;
 
-    setCicles(
-      cicles.map((cicle, idx) => {
-        if (idx != updatedCicleIdx) return cicle;
+    setCycles(
+      cycles.map((cycle, idx) => {
+        if (idx != updatedCycleIdx) return cycle;
         return {
-          name: name !== undefined ? name : cicle.name,
-          duration: duration !== undefined ? duration : cicle.duration,
+          name: name !== undefined ? name : cycle.name,
+          duration: duration !== undefined ? duration : cycle.duration,
         };
       })
     );
@@ -50,33 +50,33 @@ export default function CiclesContainer(
   /**
    * Remove um ciclo pelo índice.
    */
-  const removeCicle = async (cicleIdx: number) => {
-    setCicles(cicles.filter((_, idx) => idx != cicleIdx));
+  const removeCycle = async (cycleIdx: number) => {
+    setCycles(cycles.filter((_, idx) => idx != cycleIdx));
   };
 
   /**
    * Adiciona um novo ciclo vazio.
    */
-  const addCicleHandler = () => {
-    const newCicle: DryerCicle = { name: "", duration: 0 };
-    setCicles([...cicles, newCicle]);
+  const addCycleHandler = () => {
+    const newCycle: DryerCycle = { name: "", duration: 0 };
+    setCycles([...cycles, newCycle]);
   };
 
   return (
     <View style={styles.container} {...props}>
       <Text style={styles.title}>Ciclos</Text>
       <View>
-        {cicles.map((cicle, idx) => (
-          <CicleInput
-            updateCicle={updateCicle}
-            removeCicle={removeCicle}
-            cicle={cicle}
+        {cycles.map((cycle, idx) => (
+          <CycleInput
+            updateCycle={updateCycle}
+            removeCycle={removeCycle}
+            cycle={cycle}
             id={String(idx)}
             key={idx}
           />
         ))}
       </View>
-      <TouchableOpacity style={styles.addButton} onPress={addCicleHandler}>
+      <TouchableOpacity style={styles.addButton} onPress={addCycleHandler}>
         <Text style={styles.addButtonText}>Adicionar Ciclo</Text>
       </TouchableOpacity>
     </View>

@@ -1,13 +1,25 @@
 import { View, Text, TouchableOpacity } from "react-native";
+import { ReactNode } from "react";
 import DryerControllerScreen from "screens/DryerController";
 import MeasurementControllerScreen from "screens/MeasurementController";
 import MeasurementHistoryScreen from "screens/MeasurementHistory";
 
-export default function Header({
-  setBody,
-}: {
-  setBody: (body: React.ReactNode) => void;
-}) {
+/**
+ * Props para o componente Header.
+ */
+interface HeaderProps {
+  setBody: (body: ReactNode) => void;
+}
+
+/**
+ * Componente de cabeçalho/navegação principal da aplicação.
+ * Fornece botões para navegar entre as três telas principais:
+ * - Medições
+ * - Histórico de Medições  
+ * - Desumidificadores
+ * @param setBody Função para atualizar o conteúdo da tela principal
+ */
+export default function Header({ setBody }: HeaderProps) {
   return (
     <View style={styles.container}>
       <TouchableOpacity
