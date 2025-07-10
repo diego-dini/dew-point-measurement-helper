@@ -9,40 +9,40 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from "react-native";
-import { DryerCicle } from "types/dryer";
+import { DryerCycle } from "types/dryer";
 
 /**
  * Props para o input de ciclo individual.
  * - id: índice do ciclo
- * - cicle: dados do ciclo
- * - updateCicle: função para atualizar o ciclo
- * - removeCicle: função para remover o ciclo
+ * - cycle: dados do ciclo
+ * - updateCycle: função para atualizar o ciclo
+ * - removeCycle: função para remover o ciclo
  */
-type CicleInputProps = {
+type CycleInputProps = {
   id: string;
-  cicle: DryerCicle;
-  updateCicle: (
-    updatedCicle: { name?: string; duration?: number },
-    updatedCicleIdx: Number
+  cycle: DryerCycle;
+  updateCycle: (
+    updatedCycle: { name?: string; duration?: number },
+    updatedCycleIdx: Number
   ) => void;
-  removeCicle: (cicleIdx: number) => void;
+  removeCycle: (cycleIdx: number) => void;
 };
 
 /**
  * Componente de input para edição de um ciclo de dryer.
  * Permite editar nome e duração, e remover o ciclo.
  */
-export default function CicleInput(props: CicleInputProps & ViewProps) {
-  const { cicle, updateCicle, removeCicle } = props;
-  const [name, setName] = useState(cicle.name);
-  const [duration, setDuration] = useState(cicle.duration);
+export default function CycleInput(props: CycleInputProps & ViewProps) {
+  const { cycle, updateCycle, removeCycle } = props;
+  const [name, setName] = useState(cycle.name);
+  const [duration, setDuration] = useState(cycle.duration);
   const [isFocus, setIsFocus] = useState(false);
 
   // Sincroniza o estado local com as props ao trocar de ciclo
   useEffect(() => {
-    setName(cicle.name);
-    setDuration(cicle.duration);
-  }, [cicle.name, cicle.duration, props.id]);
+    setName(cycle.name);
+    setDuration(cycle.duration);
+  }, [cycle.name, cycle.duration, props.id]);
 
   /**
    * Handler para mudança do nome
@@ -51,7 +51,7 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
     e: NativeSyntheticEvent<TextInputChangeEventData>
   ) => {
     const name = e.nativeEvent.text;
-    updateCicle({ name }, Number(props.id));
+    updateCycle({ name }, Number(props.id));
   };
 
   /**
@@ -64,12 +64,12 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
     let duration = 0;
     if (!Number.isNaN(text)) {
       setDuration(Number(text));
-      updateCicle({ duration }, Number(props.id));
+      updateCycle({ duration }, Number(props.id));
     }
   };
 
   return (
-    <View style={styles.cicleCard} id={props.id}>
+    <View style={styles.cycleCard} id={props.id}>
       <LabeledTextInput
         labelValue="Nome"
         value={name}
@@ -91,7 +91,7 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
         <TouchableOpacity
           style={styles.deleteButton}
           onPress={() => {
-            removeCicle(Number(props.id));
+            removeCycle(Number(props.id));
           }}
         >
           <Text style={styles.deleteButtonText}>Apagar</Text>
@@ -102,7 +102,7 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
 }
 
 const styles = StyleSheet.create({
-  cicleCard: {
+  cycleCard: {
     backgroundColor: "#f8fafd",
     borderRadius: 8,
     padding: 12,

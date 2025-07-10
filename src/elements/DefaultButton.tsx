@@ -6,8 +6,12 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
 
+/**
+ * Componente de botão padrão reutilizável.
+ * Aplica estilos consistentes e suporte a estados disabled/enabled.
+ * @param props Props incluindo children (conteúdo do botão) e todas as props de TouchableOpacity
+ */
 export default function DefaultButton(
   props: { children: ReactNode } & TouchableOpacityProps
 ) {
