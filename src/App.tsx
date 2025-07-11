@@ -4,6 +4,14 @@ import React, { useState, ReactNode, useEffect } from "react";
 import { LoadingProvider } from "elements/LoadingContext";
 import * as Notifications from "expo-notifications";
 
+/**
+ * Componente principal da aplicação.
+ * Configura a estrutura básica da UI com:
+ * - SafeAreaView para compatibilidade com diferentes dispositivos
+ * - LoadingProvider para contexto global de loading
+ * - Header para navegação
+ * - Área dinâmica para conteúdo das telas
+ */
 export default function App() {
   const [body, setBody] = useState<ReactNode>(null);
 

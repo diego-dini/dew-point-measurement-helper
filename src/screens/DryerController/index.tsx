@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import storage from "utils/storage";
-import { Dryer, DryerCicle } from "types/dryer";
+import { Dryer, DryerCycle } from "types/dryer";
 import DryerButton from "../../elements/DryerButton";
-import CiclesContainer from "./CiclesContainer";
+import CyclesContainer from "./CyclesContainer";
 import { useLoading } from "elements/LoadingContext";
 import DryerInformation from "./DryerInformation";
 import DefaultButton from "elements/DefaultButton";
@@ -31,11 +31,11 @@ export default function DryerControllerScreen() {
   const [dryers, setDryers] = useState<Dryer[]>([]);
   const [name, setName] = useState<string>("");
   const [id, setId] = useState<number>();
-  const [cicles, setCiclesl] = useState<DryerCicle[]>([]);
+  const [cycles, setCyclesl] = useState<DryerCycle[]>([]);
   const { setLoading } = useLoading();
 
-  const setCicles = (newCicles: DryerCicle[]) => {
-    setCiclesl(newCicles);
+  const setCycles = (newCycles: DryerCycle[]) => {
+    setCyclesl(newCycles);
   };
 
   /**
@@ -45,7 +45,7 @@ export default function DryerControllerScreen() {
     Keyboard.dismiss();
     setId(dryer.id);
     setName(dryer.name);
-    setCicles(dryer.cicles);
+    setCycles(dryer.cycles);
     setShowButtons(false);
   };
 
@@ -61,7 +61,7 @@ export default function DryerControllerScreen() {
     const dryer = {
       id: Number(id),
       name,
-      cicles,
+      cycles,
     };
 
     const defaultCallback = async () => {
@@ -95,7 +95,7 @@ export default function DryerControllerScreen() {
     setDryers(await storage.getDryers());
     setId(undefined);
     setName("");
-    setCicles([]);
+    setCycles([]);
     setLoading(false);
   };
 
@@ -105,7 +105,7 @@ export default function DryerControllerScreen() {
     setDryers(await storage.getDryers());
     setId(undefined);
     setName("");
-    setCicles([]);
+    setCycles([]);
     setLoading(false);
   };
 
@@ -119,14 +119,12 @@ export default function DryerControllerScreen() {
   return (
     <DefaultContainer>
       <DefaultCardContainer>
-        <LabeledTextInput
-          labelValue="Desumidificador"
-          onFocus={(e) => setShowButtons(true)}
-          onBlur={(e) => setShowButtons(false)}
-        ></LabeledTextInput>
-        {showButtons ? (
-          <DryerSelector setDryer={updateSelectedDryer} />
-        ) : undefined}
+        <Text style={style.sectionTitle}>Informações</Text>
+        <DryerInformation
+          dryerId={Number.isNaN(id) ? undefined : Number(id)}
+          dryerName={name}
+          onChange={(e) => setName(e.nativeEvent.text)}
+        />
         <CiclesContainer cicles={cicles} setCicles={setCicles} />
         <DefaultActionContainer>
           <DefaultButton onPress={saveHandler}>Salvar</DefaultButton>
@@ -167,17 +165,17 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
   },
-  CicleInputView: {
+  CycleInputView: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 12,
     margin: 10,
   },
-  CicleInputLabel: {
+  CycleInputLabel: {
     fontSize: 16,
     marginRight: 8,
   },
-  CicleInput: {
+  CycleInput: {
     backgroundColor: "#f0f0f0",
     borderRadius: 6,
     padding: 8,
