@@ -125,7 +125,7 @@ export default function DryerControllerScreen() {
           dryerName={name}
           onChange={(e) => setName(e.nativeEvent.text)}
         />
-        <CiclesContainer cicles={cicles} setCicles={setCicles} />
+        <CyclesContainer cycles={cycles} setCycles={setCycles} />
         <DefaultActionContainer>
           <DefaultButton onPress={saveHandler}>Salvar</DefaultButton>
 

@@ -13,12 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.1.2",
-    "expo": "53.0.15",
-    "expo-dev-client": "~5.2.2",
+    "expo": "53.0.19",
+    "expo-dev-client": "~5.2.4",
     "expo-device": "~7.1.4",
-    "expo-notifications": "~0.31.3",
+    "expo-notifications": "~0.31.4",
     "react": "19.0.0",
-    "react-native": "0.79.4"
+    "react-native": "0.79.5"
   },
   "devDependencies": {
     "@expo/ngrok": "^4.1.3",
