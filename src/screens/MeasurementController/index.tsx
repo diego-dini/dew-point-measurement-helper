@@ -91,11 +91,11 @@ export default function MeasurementControllerScreen(): ReactNode {
   /**
    * Agenda notificação para próxima troca de torre, se aplicável
    */
-  const createNotification = (): void => {
+  const createNotification = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
     const nextTowerSwitch = currentMeasurement.nextTowerSwitchTime;
     if (nextTowerSwitch === null || nextTowerSwitch - Date.now() <= 0) return;
-    Notifications.scheduleNotificationAsync({
-      identifier: "next_tower_switch",
+    await Notifications.scheduleNotificationAsync({
       content: {
         interruptionLevel: "critical",
         title: "Hora da próxima medição!",

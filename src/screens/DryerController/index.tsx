@@ -16,6 +16,9 @@ import DefaultButton from "elements/DefaultButton";
 import DefaultContainer from "elements/DefaultContainer";
 import DefaultCardContainer from "elements/DefaultCard";
 import DefaultActionContainer from "elements/DefaultActionContainer";
+import DryerSelector from "elements/DryerSelector";
+import LabeledTextInput from "elements/LabeledTextInput";
+import LabeledText from "elements/LabeledText";
 
 /**
  * Tela de controle de desumidificadores.
@@ -115,32 +118,6 @@ export default function DryerControllerScreen() {
 
   return (
     <DefaultContainer>
-      {/* Botão para mostrar/ocultar lista de dryers */}
-      <View style={{ marginBottom: 16 }}>
-        <TouchableOpacity
-          style={style.toggleButton}
-          onPress={() => setShowButtons((prev) => !prev)}
-        >
-          <Text style={style.toggleButtonText}>Desumidificadores</Text>
-        </TouchableOpacity>
-        {showButtons && (
-          <View
-            style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 8 }}
-          >
-            {dryers.map((dryer, idx) => (
-              <DryerButton
-                setDryer={updateSelectedDryer}
-                dryer={dryer}
-                key={idx}
-                style={{ marginBottom: 8 }}
-              >
-                {dryer.name}
-              </DryerButton>
-            ))}
-          </View>
-        )}
-      </View>
-      {/* Formulário de informações do dryer selecionado */}
       <DefaultCardContainer>
         <Text style={style.sectionTitle}>Informações</Text>
         <DryerInformation
@@ -148,7 +125,7 @@ export default function DryerControllerScreen() {
           dryerName={name}
           onChange={(e) => setName(e.nativeEvent.text)}
         />
-        <CyclesContainer cycles={cycles} setCycles={setCycles} />
+        <CiclesContainer cicles={cicles} setCicles={setCicles} />
         <DefaultActionContainer>
           <DefaultButton onPress={saveHandler}>Salvar</DefaultButton>
 
