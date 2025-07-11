@@ -1,4 +1,4 @@
-import { ScrollView } from "react-native";
+import { ScrollView, TouchableOpacity } from "react-native";
 import { ReactNode, useEffect, useState } from "react";
 import { Measurement } from "types/measurement";
 import storage from "utils/storage";
@@ -6,6 +6,9 @@ import DefaultCardContainer from "elements/DefaultCard";
 import MeasurementEntry from "./MeasurementEntry";
 import LabeledTextInput from "elements/LabeledTextInput";
 import { ddmmyyyyToTimestamp } from "utils/time";
+import { Dryer } from "types/dryer";
+import DryerSelector from "elements/DryerSelector";
+import LabeledText from "elements/LabeledText";
 
 /**
  * Tela de histórico de medições.
@@ -18,6 +21,8 @@ export default function MeasurementHistoryScreen(): ReactNode {
   );
   // Data alvo para filtro (formato DD/MM/AAAA)
   const [targetDate, setTargetDate] = useState<string>("");
+  const [targetDryer, setTargetDryer] = useState<Dryer | null>(null);
+  const [selectTargetDryer, setSelectTargetDryer] = useState<boolean>(false);
 
   // Carrega todas as medições ao montar
   useEffect(() => {
@@ -28,18 +33,22 @@ export default function MeasurementHistoryScreen(): ReactNode {
 
   // Atualiza lista ao alterar data alvo
   useEffect(() => {
-    if (!targetDate || targetDate.length !== 10) return;
-    const targetTimeStampStart = ddmmyyyyToTimestamp(targetDate);
-    const targetTimeStampEnd = targetTimeStampStart + 86400000;
+    let targetTimeStampStart = 0
+    let targetTimeStampEnd = 0
+    if (!targetDate || targetDate.length == 10) {
+      targetTimeStampStart = ddmmyyyyToTimestamp(targetDate);
+      targetTimeStampEnd = targetTimeStampStart + 86400000;
+    }
     storage
       .getMeasurements({
-        startDate: targetTimeStampStart,
-        endDate: targetTimeStampEnd,
+        startDate: targetTimeStampStart > 0 ? targetTimeStampStart : undefined,
+        endDate: targetTimeStampStart > 0 ? targetTimeStampEnd : undefined,
+        dryer: targetDryer ? targetDryer.id : undefined,
       })
       .then((measurements) => {
         setMeasurementHistory(measurements);
       });
-  }, [targetDate]);
+  }, [targetDate, targetDryer]);
 
   /**
    * Atualiza o campo de data alvo, formatando para DD/MM/AAAA
@@ -67,6 +76,23 @@ export default function MeasurementHistoryScreen(): ReactNode {
         onChange={(e) => updateTargetDate(e.nativeEvent.text)}
         value={targetDate}
       />
+      <TouchableOpacity
+        onPress={() => {
+          setTargetDryer(null);
+          setSelectTargetDryer(true);
+        }}
+      >
+        <LabeledText labelValue="Desumidificador" value={targetDryer?.name} />
+      </TouchableOpacity>
+
+      {selectTargetDryer ? (
+        <DryerSelector
+          setDryer={(dryer: Dryer) => {
+            setTargetDryer(dryer);
+            setSelectTargetDryer(false);
+          }}
+        />
+      ) : undefined}
       <ScrollView>
         {measurementHistory
           ? measurementHistory.map((measurement, idx) => (

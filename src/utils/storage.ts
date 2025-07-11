@@ -118,7 +118,15 @@ class storage {
    * @returns Lista de desumidificadores encontrados
    */
   async getDryers(params?: { id?: number; name?: string }): Promise<Dryer[]> {
-    let dryers = (await this.enqueueOperation(DRYERS_KEY)) as Dryer[];
+    let dryers = (await this.enqueueOperation(DRYERS_KEY)).map(
+      (dryer: Object) => {
+        if ("cicles" in dryer) {
+          const { cicles, ...rest } = dryer;
+          return { ...rest, cycles: cicles };
+        }
+        return dryer;
+      }
+    ) as Dryer[];
     if (!params) return dryers;
     if (params.id) dryers = dryers.filter((entry) => entry.id === params.id);
     if (params.name)
@@ -164,7 +172,6 @@ class storage {
       measurements = measurements.filter(
         (entry) => entry.dryer == params.dryer
       );
-
     if (params.status)
       measurements = measurements.filter(
         (entry) => entry.status == params.status

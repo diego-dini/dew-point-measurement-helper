@@ -120,12 +120,15 @@ export default function DryerControllerScreen() {
     <DefaultContainer>
       <DefaultCardContainer>
         <Text style={style.sectionTitle}>Informações</Text>
-        <DryerInformation
-          dryerId={Number.isNaN(id) ? undefined : Number(id)}
-          dryerName={name}
-          onChange={(e) => setName(e.nativeEvent.text)}
-        />
-        <CyclesContainer cycles={cycles} setCycles={setCycles} />
+        <LabeledTextInput
+          labelValue="Desumidificador"
+          onFocus={(e) => setShowButtons(true)}
+          onBlur={(e) => setShowButtons(false)}
+        ></LabeledTextInput>
+        {showButtons ? (
+          <DryerSelector setDryer={updateSelectedDryer} />
+        ) : undefined}
+        <CyclesContainer cycles={cycles || []} setCycles={setCycles} />
         <DefaultActionContainer>
           <DefaultButton onPress={saveHandler}>Salvar</DefaultButton>
 

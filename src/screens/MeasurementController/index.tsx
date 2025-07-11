@@ -18,6 +18,7 @@ import DefaultCardContainer from "elements/DefaultCard";
 import TowersContainer from "./TowersContainer";
 import * as Notifications from "expo-notifications";
 import { useLoading } from "elements/LoadingContext";
+import DryerSelector from "elements/DryerSelector";
 
 /**
  * Tela principal de controle de medições.
@@ -185,24 +186,12 @@ export default function MeasurementControllerScreen(): ReactNode {
           onPress={() => setSelectDryerFocus(true)}
         />
         {selectDryerFocus ? (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
+          <DryerSelector
+            setDryer={(dryer: Dryer) => {
+              updateCurrentMeasurement({ dryerId: dryer.id });
+              setSelectDryerFocus(false);
             }}
-          >
-            {dryers.map((dryer) => (
-              <DryerButton
-                dryer={dryer}
-                setDryer={() => {
-                  updateCurrentMeasurement({ dryerId: dryer.id });
-                  setSelectDryerFocus(false);
-                }}
-                key={dryer.id}
-              />
-            ))}
-          </View>
+          ></DryerSelector>
         ) : undefined}
         <LabeledText labelValue="Data da Medição">
           {timestampToDDMMYYYY(currentMeasurement.measurement.date)}

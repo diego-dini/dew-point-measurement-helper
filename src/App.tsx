@@ -3,6 +3,7 @@ import Header from "./elements/Header";
 import React, { useState, ReactNode, useEffect } from "react";
 import { LoadingProvider } from "elements/LoadingContext";
 import * as Notifications from "expo-notifications";
+import MeasurementControllerScreen from "screens/MeasurementController";
 
 /**
  * Componente principal da aplicação.
@@ -13,7 +14,7 @@ import * as Notifications from "expo-notifications";
  * - Área dinâmica para conteúdo das telas
  */
 export default function App() {
-  const [body, setBody] = useState<ReactNode>(null);
+  const [body, setBody] = useState<ReactNode>(<MeasurementControllerScreen />);
 
   useEffect(() => {
     Notifications.setNotificationHandler({
