@@ -61,10 +61,8 @@ export default function CicleInput(props: CicleInputProps & ViewProps) {
     e: NativeSyntheticEvent<TextInputChangeEventData>
   ) => {
     const text = e.nativeEvent.text;
-    let duration = 0;
     if (!Number.isNaN(text)) {
-      setDuration(Number(text));
-      updateCicle({ duration }, Number(props.id));
+      updateCicle({ duration: Number(text) }, Number(props.id));
     }
   };
 
