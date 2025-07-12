@@ -11,7 +11,6 @@ import { Dryer, DryerCycle } from "types/dryer";
 import DryerButton from "../../elements/DryerButton";
 import CyclesContainer from "./CyclesContainer";
 import { useLoading } from "elements/LoadingContext";
-import DryerInformation from "./DryerInformation";
 import DefaultButton from "elements/DefaultButton";
 import DefaultContainer from "elements/DefaultContainer";
 import DefaultCardContainer from "elements/DefaultCard";
@@ -122,6 +121,8 @@ export default function DryerControllerScreen() {
         <Text style={style.sectionTitle}>Informações</Text>
         <LabeledTextInput
           labelValue="Desumidificador"
+          value={name}
+          onChange={(e) => setName(e.nativeEvent.text)}
           onFocus={(e) => setShowButtons(true)}
           onBlur={(e) => setShowButtons(false)}
         ></LabeledTextInput>
