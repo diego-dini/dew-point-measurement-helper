@@ -1,9 +1,12 @@
 import { View, Text, SafeAreaView, StatusBar } from "react-native";
-import Header from "./elements/Header";
 import React, { useState, ReactNode, useEffect } from "react";
-import { LoadingProvider } from "elements/LoadingContext";
 import * as Notifications from "expo-notifications";
-import MeasurementControllerScreen from "screens/MeasurementController";
+import Header from "elements/Header";
+import MainView from "elements/MainView";
+import Loading from "elements/Loading";
+import { LoadingProvider, useLoading } from "Context/LoadingContext";
+import { NotificationProvider } from "Context/NotificationContext";
+import { UpdateNextMeasurementProvider } from "Context/UpdateNextMeasurementContext";
 
 /**
  * Componente principal da aplicação.
@@ -14,7 +17,8 @@ import MeasurementControllerScreen from "screens/MeasurementController";
  * - Área dinâmica para conteúdo das telas
  */
 export default function App() {
-  const [body, setBody] = useState<ReactNode>(<MeasurementControllerScreen />);
+  const [body, setBody] = useState<ReactNode>();
+  const loading = useLoading();
 
   useEffect(() => {
     Notifications.setNotificationHandler({
@@ -30,11 +34,17 @@ export default function App() {
   // Handler global para exibir notificações mesmo com o app aberto
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView>
       <LoadingProvider>
-        <StatusBar backgroundColor="black" />
-        <Header setBody={setBody} />
-        <View style={{ flex: 1 }}>{body}</View>
+        <UpdateNextMeasurementProvider>
+          <NotificationProvider>
+            <MainView>
+              <StatusBar backgroundColor={"#000b0d0a"} />
+              <Header setBody={setBody} />
+              {body}
+            </MainView>
+          </NotificationProvider>
+        </UpdateNextMeasurementProvider>
       </LoadingProvider>
     </SafeAreaView>
   );
