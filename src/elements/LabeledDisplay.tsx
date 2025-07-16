@@ -1,5 +1,12 @@
 import { ReactNode } from "react";
-import { View, Text, TextProps, ViewProps, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextProps,
+  ViewProps,
+  StyleSheet,
+  ViewStyle,
+} from "react-native";
 
 /**
  * Propriedades do componente LabeledDisplay.
@@ -10,9 +17,10 @@ import { View, Text, TextProps, ViewProps, StyleSheet } from "react-native";
  * @property size - Tamanho do display ("big", "medium" ou "small").
  */
 interface LabeledDisplayProps {
-  labelValue: ReactNode;
+  labelValue?: ReactNode;
   value?: string;
   children?: ReactNode;
+  containerStyle?: ViewStyle;
   size?: "big" | "medium" | "small";
 }
 
@@ -30,6 +38,7 @@ export default function LabeledDisplay({
   labelValue,
   value,
   children,
+  containerStyle,
   size = "big",
 }: LabeledDisplayProps) {
   // Mapeamento de estilos por tamanho
@@ -45,8 +54,10 @@ export default function LabeledDisplay({
   };
 
   return (
-    <View style={style.container}>
-      <Text style={[style.label, labelSizeMap[size]]}>{labelValue}</Text>
+    <View style={{ ...style.container, ...containerStyle }}>
+      {labelValue ? (
+        <Text style={[style.label, labelSizeMap[size]]}>{labelValue}</Text>
+      ) : undefined}
       <Text style={[style.display, displaySizeMap[size]]}>
         {children || <Text>{value}</Text> || undefined}
       </Text>

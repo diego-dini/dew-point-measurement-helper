@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, GestureResponderEvent } from "react-native";
 import Overlay from "./Overlay";
 import Button from "./Button";
-import { useUpdateNextMeasurement } from "Context/UpdateNextMeasurementContext";
+import { useUpdateNextMeasurement } from "contexts/UpdateNextMeasurementContext";
 import FloatingContainerHeader from "./FloatingContainerHeader";
 import CardDisplaySecondary from "./CardDisplaySecondary";
 import LabeledInput from "./LabeledInput";

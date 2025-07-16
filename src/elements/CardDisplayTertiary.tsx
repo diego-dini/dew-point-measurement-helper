@@ -33,8 +33,8 @@ export default function CardDisplayTertiary({
 // Estilos do componente CardDisplayTertiary
 const style = StyleSheet.create({
   container: {
-    paddingVertical: 4,
-    paddingHorizontal: 4,
+    paddingVertical: 12,
+    paddingHorizontal: 8,
     borderRadius: 6,
     backgroundColor: "#4999AD",
     width: "100%",

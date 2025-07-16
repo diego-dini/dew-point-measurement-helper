@@ -5,6 +5,8 @@ import {
   TextInput,
   TextInputProps,
   StyleSheet,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 
 /**
@@ -17,9 +19,10 @@ import {
  * @property ...restProps - Outras props do TextInput.
  */
 interface LabeledInputProps extends TextInputProps {
-  labelValue: ReactNode;
+  labelValue?: ReactNode;
   value?: string;
   children?: ReactNode;
+  containerStyle?: ViewStyle;
   size?: "big" | "medium" | "small";
 }
 
@@ -39,6 +42,7 @@ export default function LabeledInput({
   value,
   children,
   size = "big",
+  containerStyle,
   ...restProps
 }: LabeledInputProps) {
   // Mapeamento de estilos por tamanho
@@ -59,8 +63,10 @@ export default function LabeledInput({
   };
 
   return (
-    <View style={style.container}>
-      <Text style={[style.label, labelSizeMap[size]]}>{labelValue}</Text>
+    <View style={{ ...style.container, ...containerStyle }}>
+      {labelValue ? (
+        <Text style={[style.label, labelSizeMap[size]]}>{labelValue}</Text>
+      ) : undefined}
       <View style={[style.inputContainer, inputSizeMap[size]]}>
         <TextInput
           style={[style.inputText, inputFontMap[size]]}

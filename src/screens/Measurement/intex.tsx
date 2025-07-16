@@ -4,13 +4,13 @@ import LabeledDisplay from "elements/LabeledDisplay";
 import LabeledInput from "elements/LabeledInput";
 import Loading from "elements/Loading";
 import { View, Text } from "react-native";
-import { useLoading } from "Context/LoadingContext";
-import { useNotification } from "Context/NotificationContext";
+import { useLoading } from "contexts/LoadingContext";
+import { useNotification } from "contexts/NotificationContext";
 import { useEffect, useState } from "react";
 import {
   UpdateNextMeasurementProvider,
   useUpdateNextMeasurement,
-} from "Context/UpdateNextMeasurementContext";
+} from "contexts/UpdateNextMeasurementContext";
 
 export default function Measurement() {
   return (

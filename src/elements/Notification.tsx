@@ -10,7 +10,7 @@ import {
 import { useEffect, useRef } from "react";
 import Overlay from "./Overlay";
 import Button from "./Button";
-import { useNotification } from "Context/NotificationContext";
+import { useNotification } from "contexts/NotificationContext";
 import FloatingContainerHeader from "./FloatingContainerHeader";
 
 /**
@@ -54,7 +54,7 @@ export default function Notification({
           <Text style={style.text}>{text || "Nada aqui"}</Text>
           <View style={style.buttonContainer}>
             {onCancel !== undefined ? (
-              <Button size="medium" onPress={onCancel}>
+              <Button size="medium" onPress={onCancel} style={{ flex: 1 }}>
                 Cancelar
               </Button>
             ) : undefined}

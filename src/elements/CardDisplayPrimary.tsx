@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { View, ViewProps, StyleSheet, Dimensions } from "react-native";
 
-
 /**
  * Propriedades do componente CardDisplayPrimary.
  *
@@ -11,7 +10,6 @@ import { View, ViewProps, StyleSheet, Dimensions } from "react-native";
 interface CardDisplayPrimaryProps extends ViewProps {
   children: ReactNode;
 }
-
 
 /**
  * Componente de card primário estilizado.
@@ -32,13 +30,16 @@ export default function CardDisplayPrimary({
   );
 }
 
-
 // Estilos do componente CardDisplayPrimary
 const style = StyleSheet.create({
+  /**
+   * Estilo base do card primário
+   */
   container: {
-    backgroundColor: "#4999AD",
-    borderRadius: 12,
-    padding: 8,
-    flex: 0,
+    backgroundColor: "#4999AD", // cor de fundo
+    gap: 12, // espaçamento entre elementos filhos
+    borderRadius: 12, // borda arredondada
+    padding: 8, // espaçamento interno
+    flex: 0, // não cresce
   },
 });

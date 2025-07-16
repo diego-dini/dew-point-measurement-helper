@@ -4,9 +4,9 @@ import * as Notifications from "expo-notifications";
 import Header from "elements/Header";
 import MainView from "elements/MainView";
 import Loading from "elements/Loading";
-import { LoadingProvider, useLoading } from "Context/LoadingContext";
-import { NotificationProvider } from "Context/NotificationContext";
-import { UpdateNextMeasurementProvider } from "Context/UpdateNextMeasurementContext";
+import { LoadingProvider, useLoading } from "contexts/LoadingContext";
+import { NotificationProvider } from "contexts/NotificationContext";
+import { UpdateNextMeasurementProvider } from "contexts/UpdateNextMeasurementContext";
 
 /**
  * Componente principal da aplicação.
