@@ -6,6 +6,7 @@ import FloatingContainerHeader from "./FloatingContainerHeader";
 import CardDisplaySecondary from "./CardDisplaySecondary";
 import LabeledInput from "./LabeledInput";
 import { useState } from "react";
+import { useMeasurement } from "contexts/MeasurementContext";
 
 /**
  * Propriedades do componente UpdateNextMeasurement.
@@ -22,39 +23,24 @@ import { useState } from "react";
  */
 export interface UpdateNextMeasurementProps {
   visible: boolean;
-  onConfirm?: (nextMeasurementTimestamp: number) => void;
 }
 
-/**
- * Componente de modal para atualizar a próxima medição.
- *
- * Exibe campos de input e botões de ação em um overlay.
- *
- * @param visible - Define se o modal está visível.
- * @param onConfirm - Função chamada ao confirmar.
- */
-
-/**
- * Componente de modal para atualizar a próxima medição.
- *
- * Exibe um overlay com campos de input e botões de ação para definir o tempo da próxima medição.
- *
- * @param visible - Define se o modal está visível.
- * @param onConfirm - Função chamada ao confirmar, recebe o timestamp da próxima medição em milissegundos.
- *
- * @example
- * <UpdateNextMeasurement visible={true} onConfirm={(timestamp) => { ... }} />
- */
 export default function UpdateNextMeasurement({
   visible,
-  onConfirm = () => {},
 }: UpdateNextMeasurementProps) {
   // Hook do contexto para controlar a visibilidade do modal
   const setUpdateNextMeasurement =
     useUpdateNextMeasurement().setUpdateNextMeasurement;
+  const measurementContext = useMeasurement();
   // Estado local para armazenar os segundos digitados
   const [seconds, setSeconds] = useState<number>(0);
-  // Não renderiza nada se não estiver visível
+  const onConfirm = (timestamp: number) => {
+    measurementContext.dispatch({
+      type: "SET-NEXT-MEASUREMENT",
+      value: timestamp,
+    });
+    setUpdateNextMeasurement({ visible: false });
+  };
   if (!visible) return null;
   return (
     <Overlay>

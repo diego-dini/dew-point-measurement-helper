@@ -226,7 +226,7 @@ class storage {
         status: MeasurementStatus.ONGOING,
         towers: { left: 0, right: 0 },
       },
-      nextTowerSwitchTime: 0,
+      nextMeasurement: 0,
     };
   }
 }

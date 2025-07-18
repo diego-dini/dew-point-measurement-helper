@@ -46,26 +46,23 @@ export function UpdateNextMeasurementProvider({
   children: ReactNode;
 }) {
   // Estado local para controlar visibilidade e handler de confirmação do modal
-  const [lvisible, setVisible] = useState(false);
-  const [lonConfirm, setOnConfirm] = useState<(value: number) => void>();
+  const [visible, setVisible] = useState(false);
 
   /**
    * Controla a exibição do modal de próxima medição global.
    * @param visible Visibilidade do modal (true/false)
-   * @param onConfirm Função chamada ao confirmar
    */
   const setUpdateNextMeasurement: setUpdateNextMeasurementType = ({
     visible: v,
-    onConfirm: onCon,
   }) => {
+    console.log("BBBBBBBB");
     setVisible(v);
-    setOnConfirm(() => onCon);
   };
 
   return (
     <UpdateNextMeasurementContext.Provider value={{ setUpdateNextMeasurement }}>
       {children}
-      <UpdateNextMeasurement visible={lvisible} onConfirm={lonConfirm} />
+      <UpdateNextMeasurement visible={visible} />
     </UpdateNextMeasurementContext.Provider>
   );
 }

@@ -36,15 +36,13 @@ export default function App() {
   return (
     <SafeAreaView>
       <LoadingProvider>
-        <UpdateNextMeasurementProvider>
-          <NotificationProvider>
-            <MainView>
-              <StatusBar backgroundColor={"#000b0d0a"} />
-              <Header setBody={setBody} />
-              {body}
-            </MainView>
-          </NotificationProvider>
-        </UpdateNextMeasurementProvider>
+        <NotificationProvider>
+          <MainView>
+            <StatusBar backgroundColor={"#000b0d0a"} />
+            <Header setBody={setBody} />
+            {body}
+          </MainView>
+        </NotificationProvider>
       </LoadingProvider>
     </SafeAreaView>
   );

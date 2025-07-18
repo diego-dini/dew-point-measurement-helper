@@ -14,16 +14,23 @@ import DryerButton from "./DryerButton";
 import { useDryer } from "contexts/DryerContext";
 
 interface DryerSelectorProps {
-  dryers: Dryer[];
+  dryers?: Dryer[];
   edited?: boolean;
 }
 
 export default function DryerSelector({
-  dryers,
+  dryers: pDryer = [],
   edited = false,
 }: DryerSelectorProps) {
   const [open, setOpen] = useState<boolean>(false);
+  const [dryers, setDryers] = useState<Dryer[]>(pDryer);
   const dryerContext = useDryer();
+
+  useState(() => {
+    if (dryers.length === 0) {
+      storage.getDryers().then((response) => setDryers(response));
+    }
+  });
 
   const selectDryer = (dryer: Dryer) => {
     Keyboard.dismiss();
