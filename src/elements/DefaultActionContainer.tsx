@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 
+/**
+ * Container padrão para agrupar ações/botões.
+ * Fornece layout flexível em coluna com espaçamento apropriado.
+ * @param props Props incluindo children (ações/botões) e todas as props de View
+ */
 export default function DefaultActionContainer(
   props: { children: ReactNode } & ViewProps
 ) {

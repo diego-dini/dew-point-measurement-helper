@@ -4,10 +4,18 @@ import { Dryer } from "types/dryer";
 import storage from "utils/storage";
 import DryerButton from "./DryerButton";
 
+/**
+ * Props para o componente DryerSelector.
+ */
 type DryerSelectorProps = {
   setDryer(dryer: Dryer): void;
 };
 
+/**
+ * Componente que exibe lista de desumidificadores disponíveis.
+ * Carrega desumidificadores do storage e renderiza botões para seleção.
+ * @param setDryer Função chamada quando um desumidificador é selecionado
+ */
 export default function DryerSelector(props: DryerSelectorProps & ViewProps) {
   const { setDryer, ...viewProps } = props;
   const [dryers, setDryers] = useState<Dryer[]>([]);

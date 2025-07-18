@@ -1,11 +1,20 @@
 import React from "react";
 import { View, ActivityIndicator, StyleSheet, Text } from "react-native";
 
+/**
+ * Props para o componente Loading.
+ */
 type LoadingProps = {
   visible: boolean;
   text?: string;
 };
 
+/**
+ * Componente de loading que exibe um overlay com spinner de carregamento.
+ * Pode incluir texto opcional e cobre toda a tela quando visível.
+ * @param visible Controla se o loading está visível
+ * @param text Texto opcional a ser exibido abaixo do spinner
+ */
 export default function Loading({ visible, text }: LoadingProps) {
   if (!visible) return null;
   return (

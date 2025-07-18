@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 
+/**
+ * Componente de container padrão da aplicação.
+ * Fornece layout flex com padding e cor de fundo consistente.
+ * @param props Props incluindo children (conteúdo do container) e todas as props de View
+ */
 export default function DefaultContainer(
   props: { children: ReactNode } & ViewProps
 ) {

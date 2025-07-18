@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,9 @@ import {
   ViewStyle,
 } from "react-native";
 
+/**
+ * Props para o componente LabeledText.
+ */
 type LabeledTextProps = {
   children?: ReactNode;
   value?: ReactNode;
@@ -17,6 +20,12 @@ type LabeledTextProps = {
   containerStyle?: StyleProp<ViewStyle>;
 };
 
+/**
+ * Componente que exibe um texto com rótulo.
+ * Útil para mostrar informações com formato "Label: Valor".
+ * @param labelValue Texto do rótulo a ser exibido
+ * @param value Valor a ser exibido (alternativamente pode usar children)
+ */
 export default function LabeledText(props: LabeledTextProps & TextProps) {
   const {
     children,
@@ -27,7 +36,6 @@ export default function LabeledText(props: LabeledTextProps & TextProps) {
     style,
     ...inputProps
   } = props;
-  useEffect(() => {}, [props]);
   return (
     <View style={[styles.row, containerStyle]}>
       <Text style={[styles.label, labelStyle]}>{labelValue}: </Text>

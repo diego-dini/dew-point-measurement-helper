@@ -1,6 +1,11 @@
 import { ReactNode } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 
+/**
+ * Componente de cartão padrão com estilo material design.
+ * Fornece um container com fundo branco, bordas arredondadas e sombra.
+ * @param props Props incluindo children (conteúdo do cartão) e todas as props de View
+ */
 export default function DefaultCardContainer(
   props: { children: ReactNode } & ViewProps
 ) {
