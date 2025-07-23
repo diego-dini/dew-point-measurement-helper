@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { View, ViewProps, StyleSheet } from "react-native";
+import { View, ViewProps, StyleSheet, ScrollView } from "react-native";
 
 /**
  * Propriedades do componente MainView.
@@ -21,9 +21,13 @@ interface MainViewProps extends ViewProps {
  */
 export default function MainView({ children, ...restProps }: MainViewProps) {
   return (
-    <View style={style.container} {...restProps}>
+    <ScrollView
+      style={style.container}
+      showsVerticalScrollIndicator={true}
+      {...restProps}
+    >
       {children}
-    </View>
+    </ScrollView>
   );
 }
 
@@ -32,9 +36,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: "#D0DBF9",
     padding: 8,
-    width: "100%",
-    height: "100%",
-    flexDirection: "column",
+    flex: 1,
     gap: 8,
   },
 });

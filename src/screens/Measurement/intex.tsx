@@ -40,15 +40,16 @@ export default function Measurement() {
   useEffect(() => {
     storage.getCurrentMeasurement().then(async (response) => {
       if (!response) return dispatch({ type: "NEW" });
-      const dryer = (
-        await storage.getDryers({ id: response.measurement.dryer })
-      )[0];
-      dryerDispatch({ type: "SET_DRYER", value: dryer });
       dispatch({ type: "SET-MEASUREMENT", value: response.measurement });
       dispatch({
         type: "SET-NEXT-MEASUREMENT",
         value: response.nextMeasurement,
       });
+      if (response.measurement.dryer == 0) return;
+      const dryer = (
+        await storage.getDryers({ id: response.measurement.dryer })
+      )[0];
+      dryerDispatch({ type: "SET_DRYER", value: dryer });
     });
   }, []);
 
@@ -180,11 +181,11 @@ export default function Measurement() {
             color="green"
             size="medium"
             onPress={() => {
-              setEditNextMeasurement((prev) => !prev);
               Keyboard.dismiss();
+              setEditNextMeasurement((prev) => !prev);
             }}
           >
-            Mudar Próxima Medição
+            {!editNextMeasurement ? "Mudar Próxima Medição" : "Cancelar"}
           </Button>
         </View>
         <Button disabled={!valid} color="green" onPress={endMesurement}>

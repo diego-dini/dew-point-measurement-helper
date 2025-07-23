@@ -26,11 +26,13 @@ export default function DryerSelector({
   const [dryers, setDryers] = useState<Dryer[]>(pDryer);
   const dryerContext = useDryer();
 
-  useState(() => {
-    if (dryers.length === 0) {
+  useEffect(() => {
+    if (pDryer.length === 0) {
       storage.getDryers().then((response) => setDryers(response));
+    } else {
+      setDryers(pDryer);
     }
-  });
+  }, [pDryer]);
 
   const selectDryer = (dryer: Dryer) => {
     Keyboard.dismiss();
@@ -60,7 +62,7 @@ export default function DryerSelector({
           onChange={onNameChange}
         ></LabeledInput>
       </TouchableOpacity>
-      {open && !edited ? (
+      {open && !edited && dryers.length > 0 ? (
         <View style={style.container}>
           {dryers.map((dryer, idx) => (
             <DryerButton dryer={dryer} selectDryer={selectDryer} key={idx} />

@@ -96,6 +96,7 @@ const style = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     columnGap: 4,
+    justifyContent: "center",
   },
   text: {
     fontSize: 16,

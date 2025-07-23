@@ -34,7 +34,7 @@ export default function App() {
   // Handler global para exibir notificações mesmo com o app aberto
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <LoadingProvider>
         <NotificationProvider>
           <MainView>

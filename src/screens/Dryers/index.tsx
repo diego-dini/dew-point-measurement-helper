@@ -57,13 +57,12 @@ export default function Dryers() {
    */
   const saveDryer = async () => {
     Loading.setLoading(true, "Salvando" /* TODO adicionar multi language */);
-
     if (state.id == 0) {
       const newId = dryers.reduce((acc, dryer) => {
-        if (dryer.id >= acc) return dryer.id + 1;
+        if (dryer.id >= acc) return dryer.id;
         else return acc;
       }, 0);
-      await storage.addDryer({ ...state, id: newId || state.id });
+      await storage.addDryer({ ...state, id: newId + 1 || state.id });
       dispatch({ type: "SET_ID", value: newId });
     } else {
       await storage.updateDryer(state);
@@ -72,8 +71,13 @@ export default function Dryers() {
     const updatedDryers = await storage.getDryers();
     setDryers(updatedDryers);
     setEdited(false);
+    dispatch({ type: "CLEAR_DRYER" });
     Keyboard.dismiss();
     Loading.setLoading(false);
+    Notification.setNotification({
+      visible: true,
+      text: "Desumidificador salvo com suscesso" /* TODO adicionar multi language */,
+    });
   };
   /**
    * Limpa o estado do desumidificador editado.
@@ -94,6 +98,7 @@ export default function Dryers() {
         dispatch({ type: "CLEAR_DRYER" });
         const newDryers = await storage.getDryers();
         setDryers(newDryers);
+        setEdited(false);
         Notification.setNotification({ visible: false });
       },
       onCancel: () => Notification.setNotification({ visible: false }),
