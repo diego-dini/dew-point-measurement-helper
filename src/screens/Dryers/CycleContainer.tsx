@@ -34,7 +34,7 @@ export default function CycleContainer() {
         <Button
           size="medium"
           color="green"
-          style={{ margin: 8 }}
+          style={style.addButton}
           onPress={() =>
             dryerContext.dispatch({
               type: "ADD_CYCLE",
@@ -72,5 +72,8 @@ const style = StyleSheet.create({
   },
   cycleEntryContainer: {
     flexDirection: "column",
+  },
+  addButton: {
+    margin: 8,
   },
 });

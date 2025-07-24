@@ -40,21 +40,16 @@ export default function MeasurementEntry({
       {open ? (
         <CardDisplaySecondary>
           <Text style={style.label}>Torres</Text>
-          <CardDisplayTertiary
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-            }}
-          >
+          <CardDisplayTertiary style={style.towersContainer}>
             <LabeledDisplay
               labelValue="Esquerda"
-              containerStyle={{ width: "45%" }}
+              containerStyle={style.towerDisplay}
             >
               {measurement.towers.left}
             </LabeledDisplay>
             <LabeledDisplay
               labelValue="Direita"
-              containerStyle={{ width: "45%" }}
+              containerStyle={style.towerDisplay}
             >
               {measurement.towers.right}
             </LabeledDisplay>
@@ -81,5 +76,12 @@ const style = StyleSheet.create({
   },
   display: {
     flex: 1,
+  },
+  towersContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  towerDisplay: {
+    width: "45%",
   },
 });

@@ -72,14 +72,14 @@ export default function CycleEntry({ idx, cycle }: CycleEntryProps) {
   if (!cycle) return null;
   return (
     <View
-      style={{
-        ...style.container,
-        ...(selected ? style.selectedContainer : undefined),
-      }}
+      style={[
+        style.container,
+        selected ? style.selectedContainer : undefined,
+      ]}
     >
       <View style={style.cycleContainer}>
         <LabeledInput
-          containerStyle={{ flex: 1 }}
+          containerStyle={style.inputContainer}
           size="big"
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
@@ -87,7 +87,7 @@ export default function CycleEntry({ idx, cycle }: CycleEntryProps) {
           value={name}
         />
         <LabeledInput
-          containerStyle={{ flex: 1 }}
+          containerStyle={style.inputContainer}
           size="big"
           onFocus={onFocusHandler}
           onBlur={onBlurHandler}
@@ -125,5 +125,8 @@ const style = StyleSheet.create({
   selectedContainer: {
     borderRadius: 8,
     backgroundColor: "#76AEC6",
+  },
+  inputContainer: {
+    flex: 1,
   },
 });

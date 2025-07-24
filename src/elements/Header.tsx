@@ -65,10 +65,10 @@ export default function Header({ setBody }: HeaderProps) {
   const Button = ({ children, body }: { children: ReactNode; body: Bodys }) => (
     <TouchableOpacity style={style.button} onPress={() => setSelected(body)}>
       <Text
-        style={{
-          ...style.font,
-          ...(selected === body ? style.selected : {}),
-        }}
+        style={[
+          style.font,
+          selected === body ? style.selected : {},
+        ]}
       >
         {children}
       </Text>
