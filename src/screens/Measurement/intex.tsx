@@ -7,6 +7,7 @@ import { View, Text, Keyboard } from "react-native";
 import { useLoading } from "contexts/LoadingContext";
 import { useNotification } from "contexts/NotificationContext";
 import { useEffect, useReducer, useState } from "react";
+import * as Notifications from "expo-notifications";
 import {
   UpdateNextMeasurementProvider,
   useUpdateNextMeasurement,
@@ -54,6 +55,7 @@ export default function Measurement() {
   }, []);
 
   useEffect(() => {
+    createNotification();
     if (state.measurement.date == 0) return setValid(false);
     if (state.measurement.dryer == 0) return setValid(false);
     storage.saveCurrenMeasurement(state);
@@ -71,6 +73,26 @@ export default function Measurement() {
     const interval = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(interval);
   }, []);
+
+  /**
+   * Agenda notificação para próxima troca de torre, se aplicável
+   */
+  const createNotification = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    const nextTowerSwitch = state.nextMeasurement;
+    if (nextTowerSwitch === null || nextTowerSwitch - Date.now() <= 0) return;
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        interruptionLevel: "critical",
+        title: "Hora da próxima medição!",
+        body: "Realize a próxima medição agora.",
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: Math.ceil((nextTowerSwitch - Date.now()) / 1000),
+      },
+    });
+  };
 
   const endMesurement = () => {
     if (state.measurement.date == 0) return setValid(false);
