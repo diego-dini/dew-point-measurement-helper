@@ -236,7 +236,7 @@ describe('Storage Utility Tests', () => {
     it('should save current measurement', async () => {
       (AsyncStorage.setItem as jest.Mock).mockResolvedValue(true);
 
-      const result = await storage.saveCurrenMeasurement(mockCurrentMeasurement);
+      const result = await storage.saveCurrentMeasurement(mockCurrentMeasurement);
 
       expect(result).toBe(true);
       expect(AsyncStorage.setItem).toHaveBeenCalledWith(
@@ -248,7 +248,7 @@ describe('Storage Utility Tests', () => {
     it('should handle save current measurement error', async () => {
       (AsyncStorage.setItem as jest.Mock).mockRejectedValue(new Error('Storage error'));
 
-      const result = await storage.saveCurrenMeasurement(mockCurrentMeasurement);
+      const result = await storage.saveCurrentMeasurement(mockCurrentMeasurement);
 
       expect(result).toBe(false);
     });

@@ -10,8 +10,8 @@ import {
   Dimensions,
 } from "react-native";
 import Dryers from "screens/Dryers";
-import History from "screens/History/intex";
-import Measurement from "screens/Measurement/intex";
+import History from "screens/History";
+import Measurement from "screens/Measurement";
 
 /**
  * Propriedades do componente Header.
@@ -65,10 +65,10 @@ export default function Header({ setBody }: HeaderProps) {
   const Button = ({ children, body }: { children: ReactNode; body: Bodys }) => (
     <TouchableOpacity style={style.button} onPress={() => setSelected(body)}>
       <Text
-        style={{
-          ...style.font,
-          ...(selected === body ? style.selected : {}),
-        }}
+        style={[
+          style.font,
+          selected === body ? style.selected : {},
+        ]}
       >
         {children}
       </Text>

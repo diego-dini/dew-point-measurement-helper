@@ -63,7 +63,7 @@ export default function LabeledInput({
   };
 
   return (
-    <View style={{ ...style.container, ...containerStyle }}>
+    <View style={[style.container, containerStyle]}>
       {labelValue ? (
         <Text style={[style.label, labelSizeMap[size]]}>{labelValue}</Text>
       ) : undefined}

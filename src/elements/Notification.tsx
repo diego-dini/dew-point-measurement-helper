@@ -54,7 +54,7 @@ export default function Notification({
           <Text style={style.text}>{text || "Nada aqui"}</Text>
           <View style={style.buttonContainer}>
             {onCancel !== undefined ? (
-              <Button size="medium" onPress={onCancel} style={{ flex: 1 }}>
+              <Button size="medium" onPress={onCancel} style={style.cancelButton}>
                 Cancelar
               </Button>
             ) : undefined}
@@ -106,5 +106,8 @@ const style = StyleSheet.create({
     textAlignVertical: "center",
     height: 156,
     width: 240,
+  },
+  cancelButton: {
+    flex: 1,
   },
 });

@@ -58,7 +58,7 @@ export default function Measurement() {
     createNotification();
     if (state.measurement.date == 0) return setValid(false);
     if (state.measurement.dryer == 0) return setValid(false);
-    storage.saveCurrenMeasurement(state);
+    storage.saveCurrentMeasurement(state);
     if (state.measurement.towers.left == 0) return setValid(false);
     if (state.measurement.towers.right == 0) return setValid(false);
     setValid(true);
@@ -109,7 +109,7 @@ export default function Measurement() {
         });
         dispatch({ type: "NEW" });
         dryerDispatch({ type: "CLEAR_DRYER" });
-        storage.saveCurrenMeasurement(storage.getBlankCurrentMeasurement());
+        storage.saveCurrentMeasurement(storage.getBlankCurrentMeasurement());
         notification.setNotification({ visible: false });
       },
       onCancel: () => notification.setNotification({ visible: false }),
@@ -131,7 +131,7 @@ export default function Measurement() {
           });
           dispatch({ type: "NEW" });
           dryerDispatch({ type: "CLEAR_DRYER" });
-          storage.saveCurrenMeasurement(storage.getBlankCurrentMeasurement());
+          storage.saveCurrentMeasurement(storage.getBlankCurrentMeasurement());
           notification.setNotification({ visible: false });
         },
         onCancel: async () => {
@@ -149,7 +149,7 @@ export default function Measurement() {
           });
           dispatch({ type: "NEW" });
           dryerDispatch({ type: "CLEAR_DRYER" });
-          storage.saveCurrenMeasurement(storage.getBlankCurrentMeasurement());
+          storage.saveCurrentMeasurement(storage.getBlankCurrentMeasurement());
           notification.setNotification({ visible: false });
         },
         onCancel: async () => {

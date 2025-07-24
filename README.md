@@ -24,21 +24,46 @@ A React Native application for managing dew point measurements with dryer (dehum
 src/
 ├── App.tsx                 # Main application component
 ├── index.tsx              # Application entry point
+├── __tests__/             # Test files
+│   ├── integration.test.ts # Integration tests
+│   └── utils/             # Utility tests
+│       ├── storage.test.ts # Storage utility tests
+│       └── time.test.ts   # Time utility tests
 ├── types/                 # TypeScript type definitions
 │   ├── dryer.ts          # Dryer and cycle types
 │   └── measurement.ts     # Measurement types and status enums
 ├── utils/                 # Utility functions
 │   ├── storage.ts        # Data storage management
 │   └── time.ts           # Time conversion utilities
-├── elements/             # Reusable UI components
+├── contexts/              # React context providers
+│   ├── DryerContext.tsx  # Dryer state management
+│   ├── LoadingContext.tsx # Loading state management
+│   ├── MeasurementContext.tsx # Measurement state management
+│   ├── NotificationContext.tsx # Notification management
+│   └── UpdateNextMeasurementContext.tsx # Next measurement timing
+├── reducers/              # State reducers
+│   ├── dryerReducer.ts   # Dryer state reducer
+│   └── measurementReducer.ts # Measurement state reducer
+├── elements/              # Reusable UI components
 │   ├── Header.tsx        # Navigation header
 │   ├── Loading.tsx       # Loading spinner
-│   ├── LoadingContext.tsx # Loading state management
-│   └── Default*.tsx      # Common UI components
+│   ├── Button.tsx        # Custom button component
+│   ├── LabeledInput.tsx  # Input with label
+│   ├── LabeledDisplay.tsx # Display with label
+│   ├── Notification.tsx  # Notification overlay
+│   ├── CardDisplay*.tsx  # Card components
+│   └── ...              # Other UI components
 └── screens/              # Main application screens
-    ├── DryerController/  # Dryer management screen
-    ├── MeasurementController/ # Measurement control screen
-    └── MeasurementHistory/    # Historical data screen
+    ├── Dryers/          # Dryer management screen
+    │   ├── index.tsx    # Main dryer screen
+    │   ├── CycleContainer.tsx # Cycle management
+    │   └── CycleEntry.tsx     # Individual cycle entry
+    ├── Measurement/     # Measurement control screen
+    │   ├── index.tsx    # Main measurement screen
+    │   └── TowerDisplay.tsx   # Tower value display
+    └── History/         # Historical data screen
+        ├── index.tsx    # Main history screen
+        └── MeasurementEntry.tsx # Individual measurement entry
 ```
 
 ## Getting Started
@@ -82,14 +107,14 @@ npm start
 
 ### Managing Dryers
 
-1. Navigate to the "Desumidificadores" (Dryers) tab
+1. Navigate to the "Desumidificador" (Dryer) tab
 2. Add a new dryer by entering its name and ID
 3. Configure operational cycles with names and durations
 4. Save the configuration for use in measurements
 
 ### Taking Measurements
 
-1. Go to the "Medições" (Measurements) tab
+1. Go to the "Medição" (Measurement) tab
 2. Select a configured dryer
 3. Enter measurement values for left and right towers
 4. Start the measurement process
@@ -97,7 +122,7 @@ npm start
 
 ### Viewing History
 
-1. Access the "Histórico de Medições" (Measurement History) tab
+1. Access the "Histórico" (History) tab
 2. Filter measurements by date range or dryer
 3. View detailed measurement information and status
 
