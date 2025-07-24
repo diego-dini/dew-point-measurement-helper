@@ -1,9 +1,9 @@
 export default ({ config }) => {
   const isDev = process.env.EAS_BUILD_PROFILE === "development";
   // You should update these values as needed for each new release!
-  const version = "0.9.3";
-  const buildNumber = "3";
-  const versionCode = 3;
+  const version = "0.9.31";
+  const buildNumber = "4";
+  const versionCode = 4;
 
   return {
     ...config,
