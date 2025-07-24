@@ -21,13 +21,9 @@ interface MainViewProps extends ViewProps {
  */
 export default function MainView({ children, ...restProps }: MainViewProps) {
   return (
-    <ScrollView
-      style={style.container}
-      showsVerticalScrollIndicator={true}
-      {...restProps}
-    >
+    <View style={style.container} {...restProps}>
       {children}
-    </ScrollView>
+    </View>
   );
 }
 
@@ -36,7 +32,8 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: "#D0DBF9",
     padding: 8,
-    flex: 1,
+    width: "100%",
+    height: "100%",
     gap: 8,
   },
 });

@@ -21,10 +21,11 @@ interface CardDisplayTertiaryProps extends ViewProps {
  */
 export default function CardDisplayTertiary({
   children,
+  style: pStyle,
   ...restProps
 }: CardDisplayTertiaryProps) {
   return (
-    <View style={style.container} {...restProps}>
+    <View style={[style.container, pStyle]} {...restProps}>
       {children}
     </View>
   );

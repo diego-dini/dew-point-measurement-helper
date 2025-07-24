@@ -26,13 +26,13 @@ export default function Dryers() {
   }, []);
 
   useEffect(() => {
+    if (!state) return;
     const id = state.id;
     const savedDryer = dryers?.find((dryer) => dryer.id == id) || {
       id: 0,
       name: "",
       cycles: [],
     };
-
     if (state.name.length == 0) return setEdited(false);
 
     if (savedDryer.name != state.name) return setEdited(true);

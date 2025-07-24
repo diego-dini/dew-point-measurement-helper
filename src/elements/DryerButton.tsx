@@ -11,7 +11,9 @@ interface DryerButtonProps {
 export default function DryerButton({ dryer, selectDryer }: DryerButtonProps) {
   return (
     <TouchableOpacity
-      onPress={() => selectDryer(dryer)}
+      onPress={() => {
+        selectDryer(dryer);
+      }}
       style={style.container}
     >
       <Text style={style.text}>{dryer.name}</Text>

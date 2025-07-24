@@ -41,7 +41,10 @@ export default function MeasurementEntry({
         <CardDisplaySecondary>
           <Text style={style.label}>Torres</Text>
           <CardDisplayTertiary
-            style={{ flexDirection: "row", justifyContent: "space-evenly" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
           >
             <LabeledDisplay
               labelValue="Esquerda"
