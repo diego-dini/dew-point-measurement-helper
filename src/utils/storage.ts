@@ -191,7 +191,7 @@ class storage {
     return measurements || [];
   }
 
-  async saveCurrenMeasurement(
+  async saveCurrentMeasurement(
     newCurrentMeasurement: CurrentMeasurement
   ): Promise<boolean> {
     const newCurrentMeasurementString = JSON.stringify(newCurrentMeasurement);

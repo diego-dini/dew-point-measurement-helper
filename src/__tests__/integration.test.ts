@@ -211,7 +211,7 @@ describe('Application Integration Tests', () => {
       };
 
       // 1. Save current measurement
-      const saveResult = await storage.saveCurrenMeasurement(currentMeasurement);
+      const saveResult = await storage.saveCurrentMeasurement(currentMeasurement);
       expect(saveResult).toBe(true);
 
       // 2. Retrieve current measurement
@@ -225,7 +225,7 @@ describe('Application Integration Tests', () => {
       expect(blankMeasurement.nextTowerSwitchTime).toBe(0);
 
       // 4. Overwrite with blank measurement
-      await storage.saveCurrenMeasurement(blankMeasurement);
+      await storage.saveCurrentMeasurement(blankMeasurement);
       const newRetrievedMeasurement = await storage.getCurrentMeasurement();
       expect(newRetrievedMeasurement.measurement.dryer).toBe(0);
     });
@@ -246,7 +246,7 @@ describe('Application Integration Tests', () => {
 
       // 2. Start a new measurement
       const blankMeasurement = storage.getBlankCurrentMeasurement();
-      await storage.saveCurrenMeasurement(blankMeasurement);
+      await storage.saveCurrentMeasurement(blankMeasurement);
 
       // 3. Set dryer for measurement
       const measurementWithDryer = {
@@ -256,7 +256,7 @@ describe('Application Integration Tests', () => {
           dryer: dryer.id,
         },
       };
-      await storage.saveCurrenMeasurement(measurementWithDryer);
+      await storage.saveCurrentMeasurement(measurementWithDryer);
 
       // 4. Set tower values
       const measurementWithTowers = {
@@ -266,14 +266,14 @@ describe('Application Integration Tests', () => {
           towers: { left: 22, right: 28 },
         },
       };
-      await storage.saveCurrenMeasurement(measurementWithTowers);
+      await storage.saveCurrentMeasurement(measurementWithTowers);
 
       // 5. Set next tower switch time
       const measurementWithTimer = {
         ...measurementWithTowers,
         nextTowerSwitchTime: Date.now() + 1800000, // 30 minutes
       };
-      await storage.saveCurrenMeasurement(measurementWithTimer);
+      await storage.saveCurrentMeasurement(measurementWithTimer);
 
       // 6. Finalize measurement
       const finalMeasurement = {
@@ -284,7 +284,7 @@ describe('Application Integration Tests', () => {
 
       // 7. Reset current measurement
       const newBlankMeasurement = storage.getBlankCurrentMeasurement();
-      await storage.saveCurrenMeasurement(newBlankMeasurement);
+      await storage.saveCurrentMeasurement(newBlankMeasurement);
 
       // 8. Verify final state
       const measurements = await storage.getMeasurements();

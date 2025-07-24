@@ -10,8 +10,8 @@ import {
   Dimensions,
 } from "react-native";
 import Dryers from "screens/Dryers";
-import History from "screens/History/intex";
-import Measurement from "screens/Measurement/intex";
+import History from "screens/History";
+import Measurement from "screens/Measurement";
 
 /**
  * Propriedades do componente Header.
