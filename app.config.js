@@ -1,9 +1,9 @@
 export default ({ config }) => {
   const isDev = process.env.EAS_BUILD_PROFILE === "development";
   // You should update these values as needed for each new release!
-  const version = "0.9.3";
-  const buildNumber = "2";
-  const versionCode = 2;
+  const version = "0.9.32";
+  const buildNumber = "5";
+  const versionCode = 5;
 
   return {
     ...config,
@@ -26,6 +26,17 @@ export default ({ config }) => {
     android: {
       package: "com.ruders.dewpointhelper",
       versionCode,
+      releaseStatus: "draft",
     },
+    description: "Aplicativo para cálculo e monitoramento do ponto de orvalho.", // Descrição curta
+    privacy: {
+      policyUrl: "",
+    },
+    categories: ["tools"],
+    contact: {
+      email: "contato@ruders.com.br",
+      website: "https://ruders.com.br",
+    },
+    screenshots: [],
   };
 };

@@ -1,44 +1,60 @@
-import React from "react";
-import { View, ActivityIndicator, StyleSheet, Text } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  Easing,
+  ActivityIndicator,
+} from "react-native";
+import { useEffect, useRef } from "react";
+import Overlay from "./Overlay";
 
-type LoadingProps = {
+/**
+ * Propriedades do componente Loading.
+ *
+ * @property visible - Define se o loading está visível.
+ * @property text - Texto a ser exibido junto ao indicador.
+ */
+interface LoadingProps {
   visible: boolean;
-  text?: string;
-};
+  text: string | undefined;
+}
 
+/**
+ * Componente de loading com overlay.
+ *
+ * Exibe um indicador de carregamento e um texto opcional.
+ *
+ * @param visible - Define se o loading está visível.
+ * @param text - Texto a ser exibido.
+ */
 export default function Loading({ visible, text }: LoadingProps) {
   if (!visible) return null;
   return (
-    <View style={styles.overlay}>
-      <View style={styles.box}>
-        <ActivityIndicator size="large" color="#fff" />
-        {text && <Text style={styles.text}>{text}</Text>}
+    <Overlay>
+      <View style={style.container}>
+        <ActivityIndicator size="large" color="#000B0D" />
+        <Text style={style.text}>{text}</Text>
       </View>
-    </View>
+    </Overlay>
   );
 }
 
-const styles = StyleSheet.create({
-  overlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0,0,0,0.4)",
+// Estilos do componente Loading
+const style = StyleSheet.create({
+  container: {
+    backgroundColor: "#D0DBF9",
+    borderRadius: 8,
+    width: 128,
+    height: 128,
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 99999,
-  },
-  box: {
-    backgroundColor: "rgba(0,0,0,0.7)",
-    borderRadius: 12,
-    padding: 24,
-    alignItems: "center",
+    padding: 14,
+    gap: 12,
   },
   text: {
-    color: "#fff",
-    marginTop: 12,
     fontSize: 16,
+    color: "#000000",
+    fontWeight: "bold",
   },
 });

@@ -8,7 +8,7 @@
  */
 export type Measurement = {
   id: number;
-  date: number; 
+  date: number;
   dryer: number;
   towers: { left: number; right: number };
   status: MeasurementStatus;
@@ -33,5 +33,5 @@ export enum MeasurementStatus {
  */
 export type CurrentMeasurement = {
   measurement: Measurement;
-  nextTowerSwitchTime: number;
+  nextMeasurement: number;
 };

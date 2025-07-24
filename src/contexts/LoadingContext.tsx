@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import Loading from "elements/Loading";
+import Loading from "../elements/Loading";
 
 /**
  * Interface para o contexto de loading global da aplicação.
